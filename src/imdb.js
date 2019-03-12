@@ -28,7 +28,6 @@ const getMovie = async link => {
   const response = await fetch(link);
   const body = await response.text();
   const $ = cheerio.load(body);
-
   return {
     link,
     'id': $('meta[property="pageId"]').attr('content'),
@@ -51,7 +50,6 @@ module.exports = async actor => {
       return await getMovie(filmo.link);
     });
   });
-
   const results = await pSettle(promises);
   const isFulfilled = results.filter(result => result.isFulfilled).map(result => result.value);
 
