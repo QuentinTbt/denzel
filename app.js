@@ -4,6 +4,7 @@ const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
 const Mongoose = require("mongoose");
 const imdb = require("./src/imdb");
+const schema = require("./graphQL")
 
 const DENZEL_IMDB_ID = "nm0000243";
 const CONNECTION_URL =
@@ -166,6 +167,14 @@ app.post("/movies/:id", async (request, response) => {
   }
 });
 
+
+//----------------------GRAPHQL-----------------
+
+app.use("/graphql", graphqlHTTP(()=>({
+    schema,graphiql : true, pretty : true
+})))
+
+//--------------------------------------------
 //-------------TUTO------------------------------
 
 // var database, collection;
