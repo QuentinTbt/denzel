@@ -38,8 +38,8 @@ app.use("/graphql", graphqlHTTP(()=>({
 
 //--------------------------------------------
 
-app.listen(9292, () => {
-  console.log("9292 :");
+app.listen(3000, () => {
+  console.log("3000 :");
 });
 
 const Style = Mongoose.model("movie", {
