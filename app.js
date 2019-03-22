@@ -1,9 +1,9 @@
-import Express from "express";
-import BodyParser from "body-parser";
-import Mongoose from "mongoose";
-import imdb from "./src/imdb";
-import schema from "./graphql";
-import graphqlHTTP from "express-graphql";
+const Express =require ("express");
+const BodyParser =require  ("body-parser");
+const Mongoose = require ("mongoose");
+const imdb =require ("./src/imdb");
+const schema = require ("./graphql");
+const graphqlHTTP = require  ("express-graphql");
 
 const DENZEL_IMDB_ID = "nm0000243";
 const CONNECTION_URL =
