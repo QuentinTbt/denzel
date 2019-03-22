@@ -1,10 +1,9 @@
-const Express = require("express");
-const BodyParser = require("body-parser");
-const MongoClient = require("mongodb").MongoClient;
-const ObjectId = require("mongodb").ObjectID;
-const Mongoose = require("mongoose");
-const imdb = require("./src/imdb");
-const schema = require("./graphQL")
+import Express from "express";
+import BodyParser from "body-parser";
+import Mongoose from "mongoose";
+import imdb from "./src/imdb";
+import schema from "./graphql";
+import graphqlHTTP from "express-graphql";
 
 const DENZEL_IMDB_ID = "nm0000243";
 const CONNECTION_URL =
@@ -27,6 +26,22 @@ db.on("error", error =>
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+  res.send("Hello World..");
+});
+
+//----------------------GRAPHQL-----------------
+
+app.use("/graphql", graphqlHTTP(()=>({
+  schema,graphiql : true, pretty : true
+})))
+
+//--------------------------------------------
+
+app.listen(9292, () => {
+  console.log("9292 :");
+});
+
 const Style = Mongoose.model("movie", {
   link: String,
   id: String,
@@ -46,9 +61,9 @@ const StyleReview = Mongoose.model("review", {
   date: String
 });
 
-app.listen(9292, () => {
-  console.log("9292 :");
-});
+
+
+
 
 async function reviewsMovie(theMovie) {
   let reviews = await StyleReview.find({ movieID: theMovie.id });
@@ -168,13 +183,7 @@ app.post("/movies/:id", async (request, response) => {
 });
 
 
-//----------------------GRAPHQL-----------------
 
-app.use("/graphql", graphqlHTTP(()=>({
-    schema,graphiql : true, pretty : true
-})))
-
-//--------------------------------------------
 //-------------TUTO------------------------------
 
 // var database, collection;
